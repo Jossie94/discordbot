@@ -3,4 +3,4 @@
 ## Features
 
 ### Credits
-- Made by: **Jesper** og **Josefine** 
+- Made by: **Jesper**, **Josefine** og **Rasmus**  
