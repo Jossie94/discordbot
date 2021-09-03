@@ -8,7 +8,7 @@ node_modules/
 dist/
 
 # Private
-.env
+*.env
 config.json
 
 # Compiled Java class files
