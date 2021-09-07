@@ -23,9 +23,20 @@ client.once('ready', () => {
 client.on('interactionCreate', async  interaction => {
     if(!interaction.isCommand()) return;
 
-    const {commandName} = interaction;
+    const command = client.commands.get(interaction.commandName);
 
-    if(commandName === 'ping')
+    if(!command) return;
+
+    try {
+        await command.execute(interaction);
+    }
+    catch (error)
+    {
+        console.error(error);
+        return interaction.reply({content: 'There was an error while executing this command', ephemeral: true});
+    }
+
+   /* if(commandName === 'ping')
     {
         await interaction.reply('Pong!');
     }
@@ -37,6 +48,8 @@ client.on('interactionCreate', async  interaction => {
     {
         await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
     }
+
+
     else if (commandName === 'user')
     {
      await interaction.reply(`Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`);
