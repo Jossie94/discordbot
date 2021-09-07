@@ -12,6 +12,7 @@ What we use:
 - [DiscordJS] The code library for the bot.
 - [NodeJS] The server and package manager.
 - [Jetbrains] Built with Jetbrains' IDE's
+- [HeidiSQL] HeidiSQL is a tool for MySQL and MariaDB
 
 ### Credits
 - Made by: **Jesper**, **Josefine** og **Rasmus**
@@ -20,3 +21,4 @@ What we use:
 [DiscordJS]: <https://discord.js.org/#/>
 [NodeJS]: <https://nodejs.org/en/>
 [Jetbrains]: <https://www.jetbrains.com/>
+[HeidiSQL]: <https://www.heidisql.com/>
