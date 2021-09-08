@@ -6,7 +6,6 @@ module.exports = {
         .setDescription('Replies with boop'),
     async execute(interaction)
     {
-        console.log('hit');
         await interaction.reply('Boop!');
     },
 };
