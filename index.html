@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>P4 - The Discord Bot</title>
+</head>
+<body>
+<div id="user-info">HELLO</div>
+    <a class="login" id="login" style="display: none" href="https://discord.com/api/oauth2/authorize?client_id=882232401890275338&permissions=0&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2F&response_type=code&scope=identify%20bot%20applications.commands">Identify yourself</a>
+<script>
+	function genRndStr(){
+		let rndStr = '';
+		const rndNmb = Math.floor(Math.random()*10);
+
+		for (let i = 0; i < 20 + rndNmb; i++){
+			rndStr += String.fromCharCode(33 + Math.floor(Math.random() * 94));
+        }
+		return rndStr;
+	}
+
+    window.onload = ()=>{
+		const fragment = new URLSearchParams(window.location.hash.slice(1));
+		const [accessToken, tokenType, state] = [fragment.get('access_token'), fragment.get('token_type'), fragment.get('state')];
+
+		if (!accessToken){
+			const rndStr = genRndStr();
+			localStorage.setItem('oauth-state', rndStr);
+
+			document.getElementById('login').href += `&state=${encodeURIComponent(btoa(rndStr))}`;
+			return document.getElementById('login').style.display  = 'block';
+        }
+
+		if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
+			return console.log('You may have been click-jacked!');
+		}
+
+		fetch('https://discord.com/api/users/@me', {
+			headers: {
+				authorization: `${tokenType} ${accessToken}`,
+			},
+		})
+			.then(result => result.json())
+			.then(response => {
+				const { username, discriminator } = response;
+				document.getElementById('user-info').innerText += ` ${username}#${discriminator}`;
+			})
+			.catch(console.error);
+    }
+</script>
+</body>
+</html>
