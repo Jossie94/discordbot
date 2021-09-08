@@ -10,3 +10,4 @@ module.exports = {
         await interaction.reply('Boop!');
     },
 };
+//hej
