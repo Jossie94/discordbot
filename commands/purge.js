@@ -3,20 +3,23 @@ const {SlashCommandBuilder} = require('@discordjs/builders');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('purge')
-        .setDescription('purges a given number of chat messeges'),
-    async execute(interaction,message)
+        .setDescription('purges a given number of chat messeges').addIntegerOption(option =>
+            option.setName('input')
+                .setDescription('The amount of messages to delete')
+                .setRequired(true)),
+    async execute(interaction)
     {
-        const args = message.content.split(' ').slice(1); // All arguments behind the command name with the prefix
-        const amount = args.join(' '); // Amount of messages which should be deleted
+        // const args = message.content
+        const amount = interaction.options.getInteger('input');
 
-        if (!amount) return msg.reply('You haven\'t given an amount of messages which should be deleted!'); // Checks if the `amount` parameter is given
-        if (isNaN(amount)) return msg.reply('The amount parameter isn`t a number!'); // Checks if the `amount` parameter is a number. If not, the command throws an error
+        if (isNaN(amount)) {
+            return interaction.reply('that doesn\'t seem to be a valid number.');
+        } else if (amount <= 0 || amount > 100) {
+            return interaction.reply('you need to input a number between 1 and 99.');
+        }
 
-        if (amount > 100) return msg.reply('You can`t delete more than 100 messages at once!'); // Checks if the `amount` integer is bigger than 100
-        if (amount < 1) return msg.reply('You have to delete at least 1 message!'); // Checks if the `amount` integer is smaller than 1
+        interaction.channel.bulkDelete(amount, true)
+        return interaction.reply('messages has ben dead\'ed')
 
-        await msg.channel.messages.fetch({ limit: amount }).then(messages => { // Fetches the messages
-            msg.channel.bulkDelete(messages // Bulk deletes all messages that have been fetched and are not older than 14 days (due to the Discord API)
-            )});
     },
 };
