@@ -1,5 +1,5 @@
 // Require the necessary discord.js classes
- const fetch = require('node-fetch')
+const fetch = require('node-fetch');
 const { Client, Intents, Collection } = require('discord.js');
 const express = require('express');
 const { port, clientId, clientSecret } = require('./config.json');
