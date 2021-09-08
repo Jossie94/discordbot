@@ -14,8 +14,8 @@ module.exports = {
 
         if (isNaN(amount)) {
             return interaction.reply('that doesn\'t seem to be a valid number.');
-        } else if (amount <= 0 || amount > 100) {
-            return interaction.reply('you need to input a number between 1 and 99.');
+        } else if (amount <= 1 || amount > 100) {
+            return interaction.reply('you need to input a number between 2 and 99.');
         }
 
         interaction.channel.bulkDelete(amount, true)
