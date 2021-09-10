@@ -1,7 +1,9 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
+const {SlashCommandBuilder, userMention} = require('@discordjs/builders');
 //const mentionable = interaction.options.getMentionable('mentionable');
 
+
 module.exports = {
+
     data: new SlashCommandBuilder()
         .setName('announce')
         .addMentionableOption(option =>option.setName('mentionable').setDescription('Announce'))
@@ -9,7 +11,8 @@ module.exports = {
 
     async execute(interaction)
     {
-        await interaction.reply('Today is a good day');
+        await interaction.reply('Hej @everyone there is an announcement');
+        console.log("Hej Rasmus :)");
     }
 
     }
