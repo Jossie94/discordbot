@@ -7,8 +7,7 @@ module.exports = {
             option.setName('input')
                 .setDescription('The amount of messages to delete')
                 .setRequired(true)),
-    async execute(interaction)
-    {
+    async execute(interaction) {
         // const args = message.content
         const amount = interaction.options.getInteger('input');
 
