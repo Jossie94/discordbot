@@ -11,6 +11,7 @@ module.exports = {
     {
         await interaction.reply('Today is a good day');
     }
-}
+
+    }
 
 //Automatically @everyone
