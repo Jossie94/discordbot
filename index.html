@@ -6,7 +6,10 @@
 </head>
 <body>
 <div id="user-info">HELLO</div>
-    <a class="login" id="login" style="display: none" href="https://discord.com/api/oauth2/authorize?client_id=882232401890275338&permissions=0&redirect_uri=http%3A%2F%2Flocalhost%3A53134%2F&response_type=code&scope=identify%20bot%20applications.commands">Identify yourself</a>
+    <a class="login"
+       id="login"
+       style="display: none"
+       href="https://discord.com/api/oauth2/authorize?client_id=882232401890275338&redirect_uri=http%3A%2F%2Flocalhost%3A53134&response_type=code&scope=identify">Identify yourself</a>
 <script>
 	function genRndStr(){
 		let rndStr = '';
@@ -20,7 +23,15 @@
 
     window.onload = ()=>{
 		const fragment = new URLSearchParams(window.location.hash.slice(1));
-		const [accessToken, tokenType, state] = [fragment.get('access_token'), fragment.get('token_type'), fragment.get('state')];
+		const [accessToken, tokenType] = [fragment.get('access_token'), fragment.get('token_type')];
+
+		console.log('1 TOKENS');
+		console.log(fragment);
+		console.log(fragment.get('access_token'));
+		console.log(fragment.get('token_type'));
+		console.log(tokenType);
+		console.log(accessToken);
+		console.log('TOKEN END');
 
 		if (!accessToken){
 			const rndStr = genRndStr();
@@ -33,6 +44,10 @@
 		if (localStorage.getItem('oauth-state') !== atob(decodeURIComponent(state))) {
 			return console.log('You may have been click-jacked!');
 		}
+		console.log('2 TOKENS');
+		console.log(tokenType);
+		console.log(accessToken);
+		console.log('TOKEN END');
 
 		fetch('https://discord.com/api/users/@me', {
 			headers: {
@@ -42,9 +57,12 @@
 			.then(result => result.json())
 			.then(response => {
 				const { username, discriminator } = response;
+				console.log('username');
+				console.log(username);
 				document.getElementById('user-info').innerText += ` ${username}#${discriminator}`;
 			})
 			.catch(console.error);
+
     }
 </script>
 </body>

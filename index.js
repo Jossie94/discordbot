@@ -24,7 +24,6 @@ app.get('/', async ({ query }, response) => {
 			});
 
 			const oauthData = await oauthResult.json();
-
 			const userResult = await fetch('https://discord.com/api/users/@me', {
 				headers: {
 					authorization: `${oauthData.token_type} ${oauthData.access_token}`,
@@ -33,8 +32,6 @@ app.get('/', async ({ query }, response) => {
 
 			console.log(await userResult.json());
 		} catch (error) {
-			// NOTE: An unauthorized token will not throw an error;
-			// it will return a 401 Unauthorized response in the try block above
 			console.error(error);
 		}
 	}
