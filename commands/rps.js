@@ -27,7 +27,7 @@ module.exports = {
         if (interaction.options.getString('string').toLowerCase() !== 'rock'&&interaction.options.getString('string').toLowerCase() !== 'paper'&&interaction.options.getString('string').toLowerCase() !== 'scissor'&&interaction.options.getString('string').toLowerCase() !== 'scissors') {
             return interaction.reply('you done fucked upppppppp and choose a non existent option: '+interaction.options.getString('string').toLowerCase())
         }
-        const botChoice = elements[Math.floor(Math.random() * 2)];
+        const botChoice = elements[Math.floor(Math.random() * 3)];
 
         return interaction.reply('you '+test(playerChoice,botChoice)+' bot choose '+botChoice.value)
 
