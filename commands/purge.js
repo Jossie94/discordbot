@@ -3,16 +3,23 @@ const {SlashCommandBuilder} = require('@discordjs/builders');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('purge')
-        .setDescription('purges a given number of chat messeges'),
-    async execute(interaction,message,args)
+        .setDescription('purges a given number of chat messeges').addIntegerOption(option =>
+            option.setName('input')
+                .setDescription('The amount of messages to delete')
+                .setRequired(true)),
+    async execute(interaction)
     {
-        var purgeamnt = args[0];
-        var purgelimit = Number(purgeamnt) + 1;
-        message.channel.messages.fetch({ limit: purgelimit }).then(messages => {
-            message.channel.bulkDelete(messages);
-            message.reply("deleted " + messages.array().length + " messages, including deletion command.");
-        }).catch(err => {
-            message.channel.send("Failed to delete messages. This may be caused by attempting to delete messages that are over 2 weeks old.");
-        });
+        // const args = message.content
+        const amount = interaction.options.getInteger('input');
+
+        if (isNaN(amount)) {
+            return interaction.reply('that doesn\'t seem to be a valid number.');
+        } else if (amount <= 1 || amount > 100) {
+            return interaction.reply('you need to input a number between 2 and 99.');
+        }
+
+        interaction.channel.bulkDelete(amount, true)
+        return interaction.reply('messages has ben dead\'ed')
+
     },
 };
