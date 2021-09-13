@@ -32,6 +32,5 @@ module.exports = {
         const botChoice = elements[Math.floor(Math.random() * 3)];
 
         return interaction.reply('you ' + test(playerChoice, botChoice) + ' bot choose ' + botChoice.value)
-
     },
 };
