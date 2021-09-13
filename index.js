@@ -27,6 +27,10 @@ app.get('/', async ({ query }, response) => {
 			console.log('oAuth JSON Obj: ');
 			const oauthData = await oauthResult.json();
 			console.log(oauthData);
+			console.log('Check access_toke: ');
+			console.log(console.log(oauthData.access_token));
+			console.log('Check token_type: ');
+			console.log(console.log(oauthData.token_type));
 			console.log('fetching user results: ');
 			const userResult = await fetch('https://discord.com/api/users/@me', {
 				headers: {
