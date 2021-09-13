@@ -31,9 +31,9 @@ module.exports = {
         }
         const botChoice = elements[Math.floor(Math.random() * 3)];
 
-        if (interaction.user.id !== '881868384709517323') {
+        /*if (interaction.user.id !== '881868384709517323') {
             return interaction.reply('you win bot choose ' + botChoice.value)
-        }
+        }*/
 
         return interaction.reply('you ' + test(playerChoice, botChoice) + ' bot choose ' + botChoice.value)
 
