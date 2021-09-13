@@ -3,7 +3,6 @@ const express = require('express');
 const fetch = require('node-fetch');
 const app = express();
 
-console.log('STARTS');
 app.get('/', async ({ query }, response) => {
 	const { code } = query;
 	console.log(code);
