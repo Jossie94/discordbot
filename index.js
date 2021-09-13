@@ -3,11 +3,13 @@ const express = require('express');
 const fetch = require('node-fetch');
 const app = express();
 
+console.log('STARTS');
 app.get('/', async ({ query }, response) => {
 	const { code } = query;
-
+	console.log(code);
 	if (code) {
 		try {
+			console.log('Fetching oauth result');
 			const oauthResult = await fetch('https://discord.com/api/oauth2/token', {
 				method: 'POST',
 				body: new URLSearchParams({
@@ -16,26 +18,29 @@ app.get('/', async ({ query }, response) => {
 					code,
 					grant_type: 'authorization_code',
 					redirect_uri: `http://${url}:${port}`,
-					scope: 'identify',
+					scope: 'guilds.join bot applications.commands',
 				}),
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded',
 				},
 			});
-
+			console.log('oAuth JSON Obj: ');
 			const oauthData = await oauthResult.json();
+			console.log(oauthData);
+			console.log('fetching user results: ');
 			const userResult = await fetch('https://discord.com/api/users/@me', {
 				headers: {
 					authorization: `${oauthData.token_type} ${oauthData.access_token}`,
 				},
 			});
-
+			console.log(userResult);
 			console.log(await userResult.json());
 		} catch (error) {
 			console.error(error);
 		}
 	}
 	// Send to index.html looking in root directory
+
 	return response.sendFile('index.html', { root: '.' });
 });
 app.listen(port, () => console.log(`App listening at http://${url}:${port}`));
