@@ -3,14 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <title>P4 - The Discord Bot</title>
+    <link rel="stylesheet" href="dist/style/main.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: "Roboto", sans-serif;
+        }
+
+        body {
+            background-color: #f3f3f3;
+        }
+        body section {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        body section .connection {
+            display: ruby;
+            margin-top: 40px;
+        }
+
+    </style>
 </head>
 <body>
-<div id="user-info">HELLO</div>
-    <a class="login"
-       id="login"
-       style="display: none"
-       target="_blank"
-       href="https://discord.com/api/oauth2/authorize?client_id=882232401890275338&permissions=8&redirect_uri=http%3A%2F%2Flocalhost%3A53134&response_type=code&scope=guilds.join%20applications.commands%20bot">Identify yourself</a>
+<section>
+    <h1>P4 DiscordJS Bot</h1>
+    <span class="connection">Connect with <a class="login"
+                          id="login"
+                          style="display: none"
+                          target="_blank"
+                          href="https://discord.com/api/oauth2/authorize?client_id=882232401890275338&permissions=8&redirect_uri=http%3A%2F%2Flocalhost%3A53134&response_type=code&scope=guilds.join%20applications.commands%20bot"> Discord</a></span>
+</section>
 <script>
 	function genRndStr(){
 		let rndStr = '';
@@ -60,7 +87,7 @@
 				const { username, discriminator } = response;
 				console.log('username');
 				console.log(username);
-				document.getElementById('user-info').innerText += ` ${username}#${discriminator}`;
+				//document.getElementById('user-info').innerText += ` ${username}#${discriminator}`;
 			})
 			.catch(console.error);
 
