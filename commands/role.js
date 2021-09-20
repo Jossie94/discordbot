@@ -3,9 +3,9 @@ const {SlashCommandBuilder} = require("@discordjs/builders");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('rank')
-        .setDescription('gives user a rank').addStringOption(option =>
-            option.setName('rank')
-                .setDescription('rank')
+        .setDescription('gives chosen user a rank').addStringOption(option =>
+            option.setName('role')
+                .setDescription('role to give user')
                 .setRequired(true)).addUserOption(option =>
             option.setName('target')
                 .setDescription('user to give role')
@@ -14,7 +14,7 @@ module.exports = {
         let user = await interaction.options.getUser('target');
         let guild = await interaction.guild.fetch(interaction.guild_id)
         let member = await guild.members.cache.get(user.id);
-        let roleName = await interaction.options.getString('rank');
+        let roleName = await interaction.options.getString('role');
         let role = await guild.roles.cache.find(r => r.name == roleName);
         if (!role) {
             return interaction.reply("the role doesn't exist");
