@@ -1,7 +1,7 @@
 module.exports = {
     name: 'interactionCreate',
     execute(interaction) {
-        console.log(interaction)
+        // console.log(interaction)
         let name = (interaction.user.id == 881868541329027082) ? 'Josefine' : 'Jesper'
         switch (interaction.commandName) {
 

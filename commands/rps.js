@@ -25,7 +25,6 @@ module.exports = {
             if (obj.value === interaction.options.getString('string').toLowerCase()) return obj;
             return null
         });
-        console.log(interaction.options.getString('string').toLowerCase());
         if (interaction.options.getString('string').toLowerCase() !== 'rock' && interaction.options.getString('string').toLowerCase() !== 'paper' && interaction.options.getString('string').toLowerCase() !== 'scissor' && interaction.options.getString('string').toLowerCase() !== 'scissors') {
             return interaction.reply('you done fucked upppppppp and choose a non existent option: ' + interaction.options.getString('string').toLowerCase())
         }
