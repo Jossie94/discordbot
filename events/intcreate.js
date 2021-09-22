@@ -16,7 +16,7 @@ module.exports = {
             case 'purge':
                 let description = (interaction.options.getString('description') === null) ? 'No description' : interaction.options.getString('description')
                 con.query(`INSERT INTO log (command, caster, timestamp)
-                           VALUES ("Deleted ${interaction.options.getInteger('input')} messeges with the reason '${description}'",
+                           VALUES ("${interaction.user.username} deleted ${interaction.options.getInteger('input')} messeges with the reason '${description}'",
                                    ${interaction.user.id}, ${time})`, function (err) {
                     if (err) throw err;
                 });
