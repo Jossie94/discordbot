@@ -5,8 +5,11 @@ module.exports = {
         .setName('purge')
         .setDescription('purges a given number of chat messeges').addIntegerOption(option =>
             option.setName('input')
-                .setDescription('The amount of messages to delete')
-                .setRequired(true)),
+                .setDescription('The amount of messages to delete MAX: 100')
+                .setRequired(true)).addStringOption(option =>
+                option.setName('description')
+                    .setDescription('Why did u choose to purge channel')
+                    .setRequired(true)),
     async execute(interaction) {
         // const args = message.content
         const amount = interaction.options.getInteger('input');
