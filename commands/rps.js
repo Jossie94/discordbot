@@ -1,10 +1,11 @@
 const mysql = require('mysql');
 const Utils = require('../utils/usefull_functions');
+const {host,user,password,database} = require('../config.json')
 const con = mysql.createConnection({
-    host: "projectfritid.com",
-    user: "Skole",
-    password: "Skole123",
-    database: "discordbot"
+    host: host,
+    user: user,
+    password: password,
+    database: database
 });
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const elements = [
@@ -31,13 +32,10 @@ module.exports = {
             if (obj.value === interaction.options.getString('string').toLowerCase()) return obj;
             return null
         });
-        if (interaction.options.getString('string').toLowerCase() !== 'rock' && interaction.options.getString('string').toLowerCase() !== 'paper' && interaction.options.getString('string').toLowerCase() !== 'scissor' && interaction.options.getString('string').toLowerCase() !== 'scissors') {
-            return interaction.reply('you done fucked upppppppp and choose a non existent option: ' + interaction.options.getString('string').toLowerCase())
-        }
         const botChoice = elements[Math.floor(Math.random() * 3)];
 
 
-        let test = con.query(`SELECT points
+        con.query(`SELECT points
                               FROM leaderboard
                               WHERE u_token = ?`, [`${interaction.user.id}`], function (err, result) {
             if (err) throw err;
@@ -49,8 +47,7 @@ module.exports = {
 
             Utils.upsertLeaderBoard(interaction.user, interaction.guild.id, points);
 
-            return interaction.reply('you ' + calculateResult(playerChoice, botChoice) + ' bot choose ' + botChoice.value)
         })
-
+        return interaction.reply('you ' + calculateResult(playerChoice, botChoice) + ' bot choose ' + botChoice.value)
     },
 };
