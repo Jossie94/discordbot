@@ -2,7 +2,7 @@ const {SlashCommandBuilder} = require("@discordjs/builders");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('rank')
+        .setName('role')
         .setDescription('gives chosen user a rank').addStringOption(option =>
             option.setName('role')
                 .setDescription('role to give user')
