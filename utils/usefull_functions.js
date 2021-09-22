@@ -1,9 +1,10 @@
 const mysql = require('mysql');
+const {host,user,password,database} = require('../config.json')
 const con = mysql.createConnection({
-    host: "projectfritid.com",
-    user: "Skole",
-    password: "Skole123",
-    database: "discordbot"
+    host: host,
+    user: user,
+    password: password,
+    database: database
 });
 
 module.exports.upsertUser = function upsertUser(member, guildID) {
