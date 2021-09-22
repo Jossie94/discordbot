@@ -9,7 +9,7 @@ module.exports = {
                 .setRequired(true)).addStringOption(option =>
                 option.setName('description')
                     .setDescription('Why did u choose to purge channel')
-                    .setRequired(true)),
+                    .setRequired(false)),
     async execute(interaction) {
         // const args = message.content
         const amount = interaction.options.getInteger('input');
