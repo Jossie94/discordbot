@@ -6,7 +6,7 @@ const elements = [
     {value: 'paper', win: 'rock', lose: 'scissors'}
 ];
 
-function test(a, b) {
+function calculateResult(a, b) {
     if (a.win === b.value) return 'win';
     if (a.lose === b.value) return 'loose';
     return 'draw';
@@ -18,7 +18,7 @@ module.exports = {
         .setDescription('rock paper scissors').addStringOption(option =>
             option.setName('string')
                 .setDescription('which option to choose')
-                .setRequired(true)),
+                .setRequired(true).addChoice("rock", "rock").addChoice("paper", "paper").addChoice("scissors", "scissors")),
     async execute(interaction) {
         // const args = message.content
         const playerChoice = elements.find((obj) => {
@@ -30,6 +30,6 @@ module.exports = {
         }
         const botChoice = elements[Math.floor(Math.random() * 3)];
 
-        return interaction.reply('you ' + test(playerChoice, botChoice) + ' bot choose ' + botChoice.value)
+        return interaction.reply('you ' + calculateResult(playerChoice, botChoice) + ' bot choose ' + botChoice.value)
     },
 };
