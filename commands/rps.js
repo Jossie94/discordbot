@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const Utils = require('../utils/usefull_functions');
-const {host,user,password,database} = require('../config.json')
+const {host, user, password, database} = require('../config.json')
 const con = mysql.createConnection({
     host: host,
     user: user,
@@ -36,8 +36,8 @@ module.exports = {
 
 
         con.query(`SELECT points
-                              FROM leaderboard
-                              WHERE u_token = ?`, [`${interaction.user.id}`], function (err, result) {
+                   FROM leaderboard
+                   WHERE u_token = ?`, [`${interaction.user.id}`], function (err, result) {
             if (err) throw err;
             var points = result[0].points;
             if (calculateResult(playerChoice, botChoice) === 'win') points = points + 2;

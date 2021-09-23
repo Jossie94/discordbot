@@ -9,12 +9,11 @@ module.exports = {
         //.addMentionableOption(option =>option.setName('mentionable').setDescription('Announce'))
         .setDescription('Replies with announcement'),
 
-    async execute(interaction)
-    {
+    async execute(interaction) {
         await interaction.reply('Hej @everyone there is an announcement');
 
     }
 
-    }
+}
 
 //Automatically @everyone

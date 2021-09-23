@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const {host,user,password,database} = require('../config.json')
+const {host, user, password, database} = require('../config.json')
 const con = mysql.createConnection({
     host: host,
     user: user,
@@ -24,17 +24,19 @@ module.exports.upsertUser = function upsertUser(member, guildID) {
     })
     return true;
 }
-module.exports.upsertLeaderBoard = function upsertLeaderBoard(member, guildID,points) {
+module.exports.upsertLeaderBoard = function upsertLeaderBoard(member, guildID, points) {
     con.query(`SELECT *
                FROM leaderboard
                WHERE u_token = ?`, [`${member.id}`], function (err, result) {
         if (err) throw err;
         if (!result.length > 0) {
             console.log('add')
-            con.query("INSERT INTO leaderboard (points, u_token, u_server) VALUES (?, ?, ?)", [points,`${member.id}`,guildID]);
+            con.query("INSERT INTO leaderboard (points, u_token, u_server) VALUES (?, ?, ?)", [points, `${member.id}`, guildID]);
         } else {
             console.log('update')
-            con.query(`UPDATE leaderboard SET points = ${points} WHERE u_token = ${member.id}`)
+            con.query(`UPDATE leaderboard
+                       SET points = ${points}
+                       WHERE u_token = ${member.id}`)
         }
     })
     return true;

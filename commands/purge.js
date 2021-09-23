@@ -7,9 +7,9 @@ module.exports = {
             option.setName('input')
                 .setDescription('The amount of messages to delete MAX: 100')
                 .setRequired(true)).addStringOption(option =>
-                option.setName('description')
-                    .setDescription('Why did u choose to purge channel')
-                    .setRequired(false)),
+            option.setName('description')
+                .setDescription('Why did u choose to purge channel')
+                .setRequired(false)),
     async execute(interaction) {
         // const args = message.content
         const amount = interaction.options.getInteger('input');
