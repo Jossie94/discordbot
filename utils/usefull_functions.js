@@ -7,6 +7,10 @@ const con = mysql.createConnection({
     database: database
 });
 
+/**
+ * @param {User} member
+ * @param {string|number|number} guildID
+ */
 module.exports.upsertUser = function upsertUser(member, guildID) {
     let is_dev = 0;
     if (member.id === '881868384709517323' || member.id === '142754322734776320' || member.id === '881868541329027082') is_dev = 1;
@@ -24,6 +28,10 @@ module.exports.upsertUser = function upsertUser(member, guildID) {
     })
     return true;
 }
+/**
+ * @param {string} guildID
+ * @param {SVGPointList|string} points
+ */
 module.exports.upsertLeaderBoard = function upsertLeaderBoard(member, guildID, points) {
     con.query(`SELECT *
                FROM leaderboard
@@ -42,3 +50,20 @@ module.exports.upsertLeaderBoard = function upsertLeaderBoard(member, guildID, p
     return true;
 }
 
+/**
+ * @param {string} select (example: "id, points")
+ * @param {string} table (example: "leaderboard")
+ * @param {string} where (example: "u_server = ? && u_token = ?")
+ * @param {*} prepared ([interaction.guild.id, interaction.user.token])
+ * @return mixed returns the query result or throws error
+ */
+module.exports.advancedSelect = function advancedSelect(select, table, where, prepared) {
+    return new Promise((resolve, reject) => {
+        con.query(`SELECT ${select}
+               FROM ${table}
+               WHERE ${where}`, prepared, function (err, result) {
+            if (err) reject(throw err);
+            resolve(result);
+        });
+    });
+}

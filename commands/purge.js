@@ -13,7 +13,13 @@ module.exports = {
     async execute(interaction) {
         // const args = message.content
         const amount = interaction.options.getInteger('input');
-
+        let guild = await interaction.guild.fetch(interaction.guild_id)
+        let member = await guild.members.cache.get(interaction.user.id);
+        const { Permissions } = require('discord.js');
+        if (!member.permissions.has(Permissions.FLAGS.MANAGE_ROLES)) {
+            interaction.reply('you do not have enough permissions')
+            return console.log(`This member: ${member}does not have permissions`);
+        }
         if (isNaN(amount)) {
             return interaction.reply('that doesn\'t seem to be a valid number.');
         } else if (amount <= 1 || amount > 100) {
