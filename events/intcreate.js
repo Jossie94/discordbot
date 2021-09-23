@@ -1,10 +1,11 @@
 const mysql = require('mysql');
 const Utils = require('../utils/usefull_functions');
+const {host,user,password,database} = require('../config.json')
 const con = mysql.createConnection({
-    host: "projectfritid.com",
-    user: "Skole",
-    password: "Skole123",
-    database: "discordbot"
+    host: host,
+    user: user,
+    password: password,
+    database: database
 });
 
 module.exports = {
