@@ -6,9 +6,6 @@ const fs = require('fs');
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-// Login to Discord with your client's token
-client.login(token);
-
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -43,3 +40,8 @@ client.on('interactionCreate', async interaction => {
 		return interaction.reply({ content: 'There was an error while executing this command', ephemeral: true });
 	}
 });
+
+
+// Login to Discord with your client's token
+client.login(token);
+
