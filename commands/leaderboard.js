@@ -13,7 +13,6 @@ module.exports = {
         .setName('leaderboard')
         .setDescription('shows u top 10 players'),
     async execute(interaction) {
-        //todo finish using new function for query instead
         let scoreboard = '';
         let i = 0;
 
