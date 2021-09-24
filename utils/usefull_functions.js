@@ -97,8 +97,8 @@ module.exports.log = function log(message, caster, target = null) {
  */
 module.exports.wait = function wait(hours) {
     return new Promise((resolve) => {
-        // for (let i = 0; i <= hours; i++) {
+        for (let i = 0; i <= hours; i++) {
             setTimeout(resolve, 5000);
-        // }
+        }
     });
 }
