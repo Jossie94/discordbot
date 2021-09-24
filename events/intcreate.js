@@ -1,4 +1,3 @@
-const mysql = require('mysql');
 const Utils = require('../utils/usefull_functions');
 
 module.exports = {
