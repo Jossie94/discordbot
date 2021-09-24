@@ -13,7 +13,6 @@ module.exports = {
                 .setDescription('user to give role')
                 .setRequired(true)),
     async execute(interaction) {
-
         let user = await interaction.options.getUser('target');
         let guild = await interaction.guild.fetch(interaction.guild_id)
         let member = await guild.members.cache.get(user.id);
@@ -31,7 +30,8 @@ module.exports = {
         }
         for (let i = 0; i < member._roles.length; i++) {
             if (role.id == member._roles[i]) {
-                return interaction.reply(`${member} har allerade rollen ` + role.name);
+                await member.roles.remove(role);
+                return interaction.reply(`role: ${role} has been removed from ${member}`);
             }
         }
         await member.roles.add(role);
