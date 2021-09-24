@@ -7,7 +7,7 @@ module.exports = {
         switch (interaction.commandName) {
             case 'purge':
                 let description = (interaction.options.getString('description') === null) ? 'No description' : interaction.options.getString('description')
-                Utils.log(`${interaction.user.username} deleted ${interaction.options.getInteger('input')} messeges with the reason '${description}'`,interaction.user.id);
+                Utils.log(`${interaction.user.username} deleted ${interaction.options.getInteger('input')} messages with the reason '${description}'`,interaction.user.id);
                 break;
             case 'role':
                 let options = interaction.options;
