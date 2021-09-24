@@ -1,4 +1,5 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
+const Utils = require('../utils/usefull_functions');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -26,8 +27,10 @@ module.exports = {
             return interaction.reply('you need to input a number between 2 and 99.');
         }
 
-        interaction.channel.bulkDelete(amount, true)
-        return interaction.reply('messages has ben dead\'ed')
+        interaction.channel.bulkDelete(amount, true).then(messages => {
+            messages.forEach((m)=>{Utils.log(`Message: '${m.content}' Has been deleted`, interaction.user.id, m.author.id);});
+        }).catch(console.error);
+        return interaction.reply('messages has ben purged')
 
     },
 };

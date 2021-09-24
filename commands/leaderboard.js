@@ -1,5 +1,4 @@
 const mysql = require('mysql');
-const Utils = require('../utils/usefull_functions');
 const {host, user, password, database} = require('../config.json')
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const con = mysql.createConnection({
@@ -15,19 +14,19 @@ module.exports = {
         .setDescription('shows u top 10 players'),
     async execute(interaction) {
         //todo finish using new function for query instead
-        let test = await Utils.advancedSelect('*','user',"serverid = ?",[`${interaction.guild.id}`])
-        console.log(test)
+        let scoreboard = '';
+        let i = 0;
 
-        // con.query(`SELECT *
-        //            FROM \`user\`
-        //                     INNER JOIN leaderboard ON user.userToken = leaderboard.u_token
-        //            WHERE serverid = ? `, [`${interaction.guild.id}`], (err, result) => {
-        //     result.forEach(function (result) {
-        //         test += (test.length > 1) ? `\n${i}. place:${result.username} points: ${result.points}` : `${i}. place:${result.username} points: ${result.points}`;
-        //         i++;
-        //     });
-        //
-        //     interaction.user.send(test);
-        // });
+        con.query(`SELECT *
+                   FROM \`user\`
+                            INNER JOIN leaderboard ON user.userToken = leaderboard.u_token
+                   WHERE serverid = ? `, [`${interaction.guild.id}`], (err, result) => {
+            result.forEach(function (result) {
+                scoreboard += (scoreboard.length > 1) ? `\n${i+1}. place: ${result.username}\t points: ${result.points}` : `${i+1}. place: ${result.username}\t points: ${result.points}`;
+                i++;
+            });
+
+            interaction.user.send(scoreboard);
+        });
     },
 };

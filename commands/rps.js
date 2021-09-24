@@ -1,12 +1,4 @@
-const mysql = require('mysql');
 const Utils = require('../utils/usefull_functions');
-const {host, user, password, database} = require('../config.json')
-const con = mysql.createConnection({
-    host: host,
-    user: user,
-    password: password,
-    database: database
-});
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const elements = [
     {value: 'rock', win: 'scissors', lose: 'paper'},
@@ -34,20 +26,15 @@ module.exports = {
         });
         const botChoice = elements[Math.floor(Math.random() * 3)];
 
+        let result = await Utils.advancedSelect("points","leaderboard","u_token = ?",[`${interaction.user.id}`])
 
-        con.query(`SELECT points
-                   FROM leaderboard
-                   WHERE u_token = ?`, [`${interaction.user.id}`], function (err, result) {
-            if (err) throw err;
-            var points = result[0].points;
-            if (calculateResult(playerChoice, botChoice) === 'win') points = points + 2;
-            if (calculateResult(playerChoice, botChoice) === 'draw') points = points + 1;
-            if (calculateResult(playerChoice, botChoice) === 'loose') points = points - 3;
-            if (points < 1) points = 0;
+        let points = result[0].points;
+        if (calculateResult(playerChoice, botChoice) === 'win') points = points + 2;
+        if (calculateResult(playerChoice, botChoice) === 'draw') points = points + 1;
+        if (calculateResult(playerChoice, botChoice) === 'loose') points = points - 3;
+        if (points < 1) points = 0;
 
-            Utils.upsertLeaderBoard(interaction.user, interaction.guild.id, points);
-
-        })
+        Utils.upsertLeaderBoard(interaction.user, interaction.guild.id, points);
         return interaction.reply('you ' + calculateResult(playerChoice, botChoice) + ' bot choose ' + botChoice.value)
     },
 };

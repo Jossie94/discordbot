@@ -8,8 +8,8 @@ const con = mysql.createConnection({
 });
 
 /**
- * @param {User} member
- * @param {string|number|number} guildID
+ * @param {User} member (discord user element usualy gotten from interaction.user)
+ * @param {string|number|number} guildID (the id of hte guild calling hte upsert usualy gotten from interaction.guild.id)
  */
 module.exports.upsertUser = function upsertUser(member, guildID) {
     let is_dev = 0;
@@ -29,7 +29,8 @@ module.exports.upsertUser = function upsertUser(member, guildID) {
     return true;
 }
 /**
- * @param {string} guildID
+ * @param {User} member (discord user element usualy gotten from interaction.user)
+ * @param {string} guildID (the id of hte guild calling hte upsert usualy gotten from interaction.guild.id)
  * @param {SVGPointList|string} points
  */
 module.exports.upsertLeaderBoard = function upsertLeaderBoard(member, guildID, points) {
@@ -47,23 +48,43 @@ module.exports.upsertLeaderBoard = function upsertLeaderBoard(member, guildID, p
                        WHERE u_token = ${member.id}`)
         }
     })
-    return true;
 }
 
 /**
  * @param {string} select (example: "id, points")
  * @param {string} table (example: "leaderboard")
  * @param {string} where (example: "u_server = ? && u_token = ?")
- * @param {*} prepared ([interaction.guild.id, interaction.user.token])
+ * @param {array} prepared (example: [interaction.guild.id, interaction.user.token])
  * @return mixed returns the query result or throws error
+ * full example: await Utils.advancedSelect('*','user',"serverid = ?",[`${interaction.guild.id}`])
  */
 module.exports.advancedSelect = function advancedSelect(select, table, where, prepared) {
     return new Promise((resolve, reject) => {
         con.query(`SELECT ${select}
-               FROM ${table}
-               WHERE ${where}`, prepared, function (err, result) {
-            if (err) reject(throw err);
+                   FROM ${table}
+                   WHERE ${where}`, prepared, function (err, result) {
+            // if (err) reject(throw err);
             resolve(result);
         });
     });
+}
+
+
+/**
+ * @param {string} message
+ * @param {integer} caster
+ * @param {null|integer} target
+ */
+module.exports.log = function log(message,caster,target = null) {
+    if (target === null){
+        con.query(`INSERT INTO log (command, caster, timestamp)
+                           VALUES ("${message}", ${caster}, ${Date.now()})`, function (err) {
+            if (err) throw err;
+        });
+    }else{
+        con.query(`INSERT INTO log (command, caster, timestamp, target)
+                           VALUES ("${message}", ${caster}, ${Date.now()}, ${target})`, function (err) {
+            if (err) throw err;
+        });
+    }
 }
