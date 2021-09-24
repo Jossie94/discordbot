@@ -5,7 +5,7 @@ const {SlashCommandBuilder} = require("@discordjs/builders");
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('role')
-        .setDescription('gives chosen user a rank').addStringOption(option =>
+        .setDescription('gives chosen user a rank').addRoleOption(option =>
             option.setName('role')
                 .setDescription('role to give user')
                 .setRequired(true)).addUserOption(option =>
@@ -19,9 +19,9 @@ module.exports = {
         if (guild.owner || !member.roles.cache.some(role => role.name === 'test' || role.name === 'Admin')) {
             return interaction.reply('you do not have high enough permissions')
         }
-        let roleName = interaction.options.getString('role');
+        let role = interaction.options.getRole('role');
         // noinspection EqualityComparisonWithCoercionJS
-        let role = await guild.roles.cache.find(r => r.name == roleName);
+        // role = await guild.roles.cache.find(r => r.name == role.name);
         if (!role) {
             return interaction.reply("the role doesn't exist");
         }
@@ -35,6 +35,6 @@ module.exports = {
             }
         }
         await member.roles.add(role);
-        return interaction.reply('role: ' + roleName + ' has been added to user: ' + user.username)
+        return interaction.reply('role: ' + role.name + ' has been added to user: ' + user.username)
     },
 };
