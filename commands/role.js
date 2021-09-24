@@ -1,3 +1,5 @@
+// noinspection EqualityComparisonWithCoercionJS
+
 const {SlashCommandBuilder} = require("@discordjs/builders");
 
 module.exports = {
@@ -18,7 +20,8 @@ module.exports = {
         if (guild.owner || !member.roles.cache.some(role => role.name === 'test' || role.name === 'Admin')) {
             return interaction.reply('you do not have high enough permissions')
         }
-        let roleName = await interaction.options.getString('role');
+        let roleName = interaction.options.getString('role');
+        // noinspection EqualityComparisonWithCoercionJS
         let role = await guild.roles.cache.find(r => r.name == roleName);
         if (!role) {
             return interaction.reply("the role doesn't exist");

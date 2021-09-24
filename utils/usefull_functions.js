@@ -10,6 +10,7 @@ const con = mysql.createConnection({
 /**
  * @param {User} member (discord user element usualy gotten from interaction.user)
  * @param {string|number|number} guildID (the id of hte guild calling hte upsert usualy gotten from interaction.guild.id)
+ * creates or updates the users information depending if he already exists or not
  */
 module.exports.upsertUser = function upsertUser(member, guildID) {
     let is_dev = 0;
@@ -32,6 +33,7 @@ module.exports.upsertUser = function upsertUser(member, guildID) {
  * @param {User} member (discord user element usualy gotten from interaction.user)
  * @param {string} guildID (the id of hte guild calling hte upsert usualy gotten from interaction.guild.id)
  * @param {SVGPointList|string} points
+ * creates or updates the users points on the leaderboard depending if he played before or is returning player
  */
 module.exports.upsertLeaderBoard = function upsertLeaderBoard(member, guildID, points) {
     con.query(`SELECT *
@@ -59,11 +61,10 @@ module.exports.upsertLeaderBoard = function upsertLeaderBoard(member, guildID, p
  * full example: await Utils.advancedSelect('*','user',"serverid = ?",[`${interaction.guild.id}`])
  */
 module.exports.advancedSelect = function advancedSelect(select, table, where, prepared) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         con.query(`SELECT ${select}
                    FROM ${table}
                    WHERE ${where}`, prepared, function (err, result) {
-            // if (err) reject(throw err);
             resolve(result);
         });
     });
@@ -74,17 +75,30 @@ module.exports.advancedSelect = function advancedSelect(select, table, where, pr
  * @param {string} message
  * @param {integer} caster
  * @param {null|integer} target
+ * logs a message for you in the database
  */
-module.exports.log = function log(message,caster,target = null) {
-    if (target === null){
+module.exports.log = function log(message, caster, target = null) {
+    if (target === null) {
         con.query(`INSERT INTO log (command, caster, timestamp)
-                           VALUES ("${message}", ${caster}, ${Date.now()})`, function (err) {
+                   VALUES ("${message}", ${caster}, ${Date.now()})`, function (err) {
             if (err) throw err;
         });
-    }else{
+    } else {
         con.query(`INSERT INTO log (command, caster, timestamp, target)
-                           VALUES ("${message}", ${caster}, ${Date.now()}, ${target})`, function (err) {
+                   VALUES ("${message}", ${caster}, ${Date.now()}, ${target})`, function (err) {
             if (err) throw err;
         });
     }
+}
+/**
+ * @param {int} hours
+ * wait a specified amount of hours
+ * use: await Utils.wait(hours);
+ */
+module.exports.wait = function wait(hours) {
+    return new Promise((resolve) => {
+        // for (let i = 0; i <= hours; i++) {
+            setTimeout(resolve, 5000);
+        // }
+    });
 }

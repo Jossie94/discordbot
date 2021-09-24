@@ -1,4 +1,6 @@
 // Require the necessary discord.js classes
+// noinspection JSUnresolvedVariable,JSUnresolvedFunction
+
 const {Client, Intents, Collection} = require('discord.js');
 const {token} = require('./config.json');
 const fs = require('fs');
@@ -42,5 +44,6 @@ client.on('interactionCreate', async interaction => {
 
 
 // Login to Discord with your client's token
+// noinspection JSIgnoredPromiseFromCall
 client.login(token);
 

@@ -4,13 +4,13 @@ const Utils = require('../utils/usefull_functions');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('purge')
-        .setDescription('purges a given number of chat messeges').addIntegerOption(option =>
+        .setDescription('purges a given number of chat messages').addIntegerOption(option =>
             option.setName('input')
                 .setDescription('The amount of messages to delete MAX: 100')
                 .setRequired(true)).addStringOption(option =>
             option.setName('description')
                 .setDescription('Why did u choose to purge channel')
-                .setRequired(false)),
+                .setRequired(true)),
     async execute(interaction) {
         // const args = message.content
         const amount = interaction.options.getInteger('input');
