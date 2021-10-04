@@ -21,7 +21,32 @@ $isLoggedIn = false;
     </ul>
 </nav>
 <section>
-<!--  DO WORK HERE  -->
+    <table>
+        <!--  DO WORK HERE  -->
+        <tr>
+            <th>ID</th>
+            <th>Command</th>
+            <th>Caster</th>
+            <th>Target</th>
+            <th>Date</th>
+        </tr>
+        <?php
+        // SQL query to interact with info from our database
+        $sql = mysqli_query(mysqli_connect("projectfritid.com","Skole","Skole123","discordbot"),"SELECT * FROM log ORDER BY id DESC LIMIT 10");
+        $i = 0;
+        // Establish the output variable
+
+        while($row = mysqli_fetch_array($sql)){
+            echo "<tr>";
+            echo "<td>".$row['id']."</td>";
+            echo "<td>".$row['command']."</td>";
+            echo "<td>".$row['caster']."</td>";
+            echo "<td>".$row['target']."</td>";
+            echo "<td>".$row['timestamp']."</td>";
+            echo "</tr>";
+        }
+        ?>
+    </table>
 </section>
 </body>
 </html>
