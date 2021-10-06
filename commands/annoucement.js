@@ -1,4 +1,4 @@
- const Utils = require('../utils/usefull_functions');
+const Utils = require('../utils/usefull_functions');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
