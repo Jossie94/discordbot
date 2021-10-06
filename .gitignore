@@ -10,6 +10,7 @@ dist/
 # Private
 *.env
 config.json
+config.php
 
 # Compiled Java class files
 *.class

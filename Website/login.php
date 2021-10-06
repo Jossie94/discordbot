@@ -1,5 +1,7 @@
 <?php
 $isLoggedIn = false;
+include("Website/src/config.php");
+session_start();
 ?>
 <html>
 <head>
@@ -14,20 +16,31 @@ $isLoggedIn = false;
 <nav>
     <ul>
         <li><a href="index.php">RPS Leaderboard</a></li>
-        <?php if ($isLoggedIn){?>
+        <?php if ($isLoggedIn) { ?>
             <li><a href="logging.php">Logging</a></li>
         <?php } ?>
         <li><a href="login.php">Login</a></li>
     </ul>
 </nav>
 <section>
-<div class="login">
-    <label for="username">Username</label>
-    <input type="text" id="username" class="username" placeholder="Username" name="username">
-    <label for="password">Password</label>
-    <input type="password" id="password" class="password" placeholder="password" name="password">
-    <input type="submit" value="Login" class="login-btn">
-</div>
+    <?php
+    $username = $_POST("username");
+    $password = $_POST("password");
+
+    if ($username || $password !== null) {
+
+    }
+
+    ?>
+    <div class="login">
+        <form action="" method="post">
+            <label for="username">Username</label>
+            <input type="text" id="username" class="username" placeholder="Username" name="username">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="password" placeholder="password" name="password">
+            <input type="submit" value="Login" class="login-btn">
+        </form>
+    </div>
 </section>
 </body>
 </html>
