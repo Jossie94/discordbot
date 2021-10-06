@@ -1,7 +1,30 @@
 <?php
-$isLoggedIn = false;
+
 include("Website/src/config.php");
 session_start();
+$_SESSION['is_logged_in'] = false;
+$error = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    $query = "SELECT login_name, login_password FROM user WHERE login_name = '$username' AND login_password = '$password'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+
+    $count = mysqli_num_rows($result);
+
+    if ($count == 1) {
+
+        $_SESSION['login_user'] = $username;
+        $_SESSION['is_logged_in'] = true;
+
+        header("location: logging.php");
+    } else {
+        $error = "Your Login Name or Password is invalid";
+    }
+}
+$isLoggedIn = $_SESSION['is_logged_in'];
 ?>
 <html>
 <head>
@@ -19,20 +42,16 @@ session_start();
         <?php if ($isLoggedIn) { ?>
             <li><a href="logging.php">Logging</a></li>
         <?php } ?>
-        <li><a href="login.php">Login</a></li>
+        <?php if (!$isLoggedIn) { ?>
+            <li><a href="login.php">Login</a></li>
+        <?php } else { ?>
+            <li><a href="logout.php">Login</a></li>
+        <?php } ?>
     </ul>
 </nav>
 <section>
-    <?php
-    $username = $_POST("username");
-    $password = $_POST("password");
-
-    if ($username || $password !== null) {
-
-    }
-
-    ?>
     <div class="login">
+        <div class="error"><?= $error ?></div>
         <form action="" method="post">
             <label for="username">Username</label>
             <input type="text" id="username" class="username" placeholder="Username" name="username">
