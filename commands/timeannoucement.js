@@ -1,28 +1,25 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const Utils = require('../utils/usefull_functions');
 
-module.exports.wait = function wait(hours) {
-    return new Promise((resolve) => {
-        for (let i = 0; i <= hours; i++) {
-            setTimeout(resolve, 3600000);
-        }
-    });
-}
+
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('timedannounce')
         .setDescription('User types in announcement message').addStringOption(option =>
-            option.setName('input')
+            option.setName('message')
                 .setDescription('the message')
-                .setRequired(true)).addIntegerOption(option =>
-            option.setName('hours')
+                .setRequired(true))/*.addIntegerOption(options =>
+            options.setName('hours')
                 .setDescription('choose time')
-                .setRequired(true)),
+                .setRequired(true))*/,
     async execute(interaction) {
-        const userinput = interaction.options.getString('input');
-        let inputhours = interaction.options.getInteger('hours');
+
+        const userinput = interaction.options.getString('message');
+        //let inputhours = interaction.options.getInteger('hours');
+        await Utils.wait(1);
         //const channelinput =
-        await interaction.reply(userinput,' ' + inputhours);
+        interaction.reply(userinput);
     },
 };
 
