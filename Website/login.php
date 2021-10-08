@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
 include("Website/src/config.php");
 session_start();
 $_SESSION['is_logged_in'] = false;
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 $isLoggedIn = $_SESSION['is_logged_in'];
 ?>
-<html>
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -45,7 +45,7 @@ $isLoggedIn = $_SESSION['is_logged_in'];
         <?php if (!$isLoggedIn) { ?>
             <li><a href="login.php">Login</a></li>
         <?php } else { ?>
-            <li><a href="logout.php">Login</a></li>
+            <li><a href="logout.php">Logout</a></li>
         <?php } ?>
     </ul>
 </nav>
