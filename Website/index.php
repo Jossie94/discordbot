@@ -26,21 +26,21 @@ $isLoggedIn = false;
     <div class="table-center">
         <table>
             <tr>
-                <th>User ID</th>
+                <th>User name</th>
                 <th>Points</th>
-                <th>User Server</th>
+                <th>User Server ID</th>
             </tr>
             <?php
             // SQL query to interact with info from our database
             $styling = '';
-            $sql = mysqli_query(mysqli_connect("projectfritid.com", "Skole", "Skole123", "discordbot"), "SELECT * FROM leaderboard ORDER BY id LIMIT 25");
+            $sql = mysqli_query($conn, "SELECT * FROM leaderboard ORDER BY id LIMIT 25");
 
             $i = 0;
             // Establish the output variable
 
             while ($row = mysqli_fetch_array($sql)) {
                 $styling = ($i % 2) ? 'background-color: darkgrey;' : 'background-color: grey;';
-                $row2 = mysqli_fetch_array(mysqli_query($conn, "SELECT username FROM user WHERE usertoken ={$row['u_token']}"));
+                $row2 = mysqli_query($conn, "SELECT username FROM user WHERE usertoken ={$row['u_token']}"));
 
 
                 echo "<tr>";
