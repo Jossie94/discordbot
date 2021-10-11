@@ -1,6 +1,6 @@
 <?php /** @noinspection PhpUndefinedVariableInspection */
-include("Website/src/config.php");
 session_start();
+include("src/config.php");
 $_SESSION['is_logged_in'] = false;
 $error = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
