@@ -21,6 +21,13 @@ $isLoggedIn = false;
     </ul>
 </nav>
 <section>
+    <h3>RPS Leaderboard</h3>
+    <table>
+        <tr>
+            <th>Points</th>
+            <th>Name</th>
+        </tr>
+    </table>
     <!--  DO WORK HERE  -->
 </section>
 </body>
