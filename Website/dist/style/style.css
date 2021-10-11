@@ -76,5 +76,8 @@ body .table-center {
 body .table-center table {
   background-color: lightgreen;
 }
+body .table-center table td {
+  padding: 5px;
+}
 
 /*# sourceMappingURL=style.css.map */
