@@ -1,8 +1,10 @@
 <?php /** @noinspection PhpUndefinedVariableInspection */
 session_start();
 include("src/config.php");
-$_SESSION['is_logged_in'] = false;
 $error = "";
+if(!isset($_SESSION['is_logged_in'])){
+    $_SESSION['is_logged_in'] = false;
+}
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -56,7 +58,7 @@ $isLoggedIn = $_SESSION['is_logged_in'];
             <label for="username">Username</label>
             <input type="text" id="username" class="username" placeholder="Username" name="username">
             <label for="password">Password</label>
-            <input type="password" id="password" class="password" placeholder="password" name="password">
+            <input type="password" id="password" class="password" placeholder="Password" name="password">
             <input type="submit" value="Login" class="login-btn">
         </form>
     </div>
