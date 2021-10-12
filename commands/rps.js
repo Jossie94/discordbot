@@ -27,8 +27,13 @@ module.exports = {
         const botChoice = elements[Math.floor(Math.random() * 3)];
 
         let result = await Utils.advancedSelect("points","leaderboard","u_token = ?",[`${interaction.user.id}`])
+        let points;
+        if (typeof result !== 'undefined'){
+            points = 0;
+        }else{
+            points = result[0].points;
+        }
 
-        let points = result[0].points;
         if (calculateResult(playerChoice, botChoice) === 'win') points = points + 2;
         if (calculateResult(playerChoice, botChoice) === 'draw') points = points + 1;
         if (calculateResult(playerChoice, botChoice) === 'loose') points = points - 3;

@@ -1,19 +1,23 @@
-const {SlashCommandBuilder} = require('@discordjs/builders');
-//const mentionable = interaction.options.getMentionable('mentionable');
-
+const Utils = require('../utils/usefull_functions');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
+	data: new SlashCommandBuilder()
+		.setName('announce')
+		.setDescription('Announcement').addStringOption(option =>
+			option.setName('message')
+				.setDescription('write your message')
+				.setRequired(true)).addChannelOption(option =>
+		option.setName('channel')
+			.setDescription('type in channel')
+			.setRequired(true)),
+	async execute(interaction) {
+				const message = interaction.options.getString('message');
+				const channel = interaction.options.getChannel('channel');
+				await interaction.reply('Sent to channel '+ channel.name);
+				channel.send(message);
 
-    data: new SlashCommandBuilder()
-        .setName('announce')
-        //.addMentionableOption(option =>option.setName('mentionable').setDescription('Announce'))
-        .setDescription('Replies with announcement'),
+		//let channel = interaction.channel.getString('input');
 
-    async execute(interaction) {
-        await interaction.reply('Hej @everyone there is an announcement');
-
-    }
-
-}
-
-//Automatically @everyone
+	},
+};

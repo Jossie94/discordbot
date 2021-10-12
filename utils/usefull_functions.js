@@ -9,7 +9,7 @@ const con = mysql.createConnection({
 
 /**
  * @param {User} member (discord user element usualy gotten from interaction.user)
- * @param {string|number|number} guildID (the id of hte guild calling hte upsert usualy gotten from interaction.guild.id)
+ * @param {string|number|number} guildID (the id of the guild calling the upsert usualy gotten from interaction.guild.id)
  * creates or updates the users information depending if he already exists or not
  */
 module.exports.upsertUser = function upsertUser(member, guildID) {
@@ -31,7 +31,7 @@ module.exports.upsertUser = function upsertUser(member, guildID) {
 }
 /**
  * @param {User} member (discord user element usualy gotten from interaction.user)
- * @param {string} guildID (the id of hte guild calling hte upsert usualy gotten from interaction.guild.id)
+ * @param {string} guildID (the id of the guild calling the upsert usualy gotten from interaction.guild.id)
  * @param {SVGPointList|string} points
  * creates or updates the users points on the leaderboard depending if he played before or is returning player
  */
@@ -73,7 +73,7 @@ module.exports.advancedSelect = function advancedSelect(select, table, where, pr
 
 /**
  * @param {string} message
- * @param {integer} caster
+ * @param {integer} caster (user_id that did the command)
  * @param {null|integer} target
  * logs a message for you in the database
  */
@@ -98,7 +98,7 @@ module.exports.log = function log(message, caster, target = null) {
 module.exports.wait = function wait(hours) {
     return new Promise((resolve) => {
         for (let i = 0; i <= hours; i++) {
-            setTimeout(resolve, 360000);
+            setTimeout(resolve, 3600000);
         }
     });
 }
