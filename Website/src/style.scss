@@ -90,4 +90,27 @@ body {
       }
     }
   }
+  .search-div{
+    margin: 10px;
+    float: left;
+    background-color: lightgray;
+    width: 250px;
+    height: 350px;
+    form{
+      display: table-caption;
+      div{
+        margin:15px;
+      }
+      label{
+        margin-left: 95px;
+        input{
+          margin-left: 25px;
+        }
+      }
+      input{
+        margin-left: 90px;
+        margin-top: 15px;
+      }
+    }
+  }
 }

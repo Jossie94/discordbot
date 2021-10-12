@@ -2,7 +2,8 @@
 if(!isset($_SESSION['is_logged_in'])){
     $_SESSION['is_logged_in'] = false;
 }
-$id = '';//todo add user id on login
+include("src/config.php");
+$isLoggedIn = $_SESSION['is_logged_in'];
 ?>
 <html>
 <head>
@@ -28,50 +29,54 @@ $id = '';//todo add user id on login
     </ul>
 </nav>
 <section>
-    <table style="border-spacing: 4px; background-color: lightgreen; float: right">
-        <tr>
-            <th>ID</th>
-            <th>Command</th>
-            <th>Caster</th>
-            <th>Target</th>
-            <th>Date</th>
-        </tr>
-        <?php
-        // SQL query to interact with info from our database
-        $styling = '';
-        $sql = mysqli_query(mysqli_connect("projectfritid.com", "Skole", "Skole123", "discordbot"), "SELECT * FROM log ORDER BY id LIMIT 10");
-        $i = 0;
-        // Establish the output variable
+    <div class="table-center">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Command</th>
+                <th>Caster</th>
+                <th>Target</th>
+                <th>Date</th>
+            </tr>
+            <?php
+            // SQL query to interact with info from our database
+            $styling = '';
+            $sql = mysqli_query($conn, "SELECT * FROM log ORDER BY id LIMIT 10");
+            $i = 0;
+            // Establish the output variable
 
-        while ($row = mysqli_fetch_array($sql)) {
-            $styling = ($i % 2) ? 'background-color: darkgrey;' : 'background-color: grey;';
+            while ($row = mysqli_fetch_array($sql)) {
+                //could've been done front end with nth element, but I want to show of my back end not front end
+                $styling = ($i % 2) ? 'background-color: darkgrey;' : 'background-color: grey;';
 
-            echo "<tr>";
-            echo "<td style='padding: 5px; {$styling}'>" . $row['id'] . "</td>";
-            echo "<td style='padding: 5px; {$styling}'>" . $row['command'] . "</td>";
-            echo "<td style='padding: 5px; {$styling}'>" . $row['caster'] . "</td>";
-            echo "<td style='padding: 5px; {$styling}'>" . $row['target'] . "</td>";
-            echo "<td style='padding: 5px; {$styling}'>" . $row['timestamp'] . "</td>";
-            echo "</tr>";
-            $i++;
-        }
-        ?>
-    </table>
-    <div style="margin: 10px; float: left; background-color: lightgray; width: 250px; height: 350px;">
-        <form style="display: table-caption" action="logging.php">
-            <label for="caster" style="margin-left: 95px;">Caster
-                <input id="caster" type="text" style="margin-left: 25px;">
-            </label>
-            <div style="margin:15px;"></div>
-            <label for="target" style="margin-left: 95px;">Target
-                <input id="target" type="text" style="margin-left: 25px;">
-            </label>
-            <div style="margin:15px;"></div>
-            <label for="message" style="margin-left: 95px;">Message
-                <input id="message" type="text" style="margin-left: 25px;">
-            </label>
-            <input type="submit" value="submit" style="margin-left: 90px;margin-top: 15px;">
-        </form>
+                echo "<tr>";
+                echo "<td style='{$styling}'>" . $row['id'] . "</td>";
+                echo "<td style='{$styling}'>" . $row['command'] . "</td>";
+                echo "<td style='{$styling}'>" . $row['caster'] . "</td>";
+                echo "<td style='{$styling}'>" . $row['target'] . "</td>";
+                echo "<td style='{$styling}'>" . $row['timestamp'] . "</td>";
+                echo "</tr>";
+                $i++;
+            }
+            //todo fix search for post get
+            ?>
+        </table>
+        <div class="search-div">
+            <form action="logging.php">
+                <label for="caster">Caster
+                    <input id="caster" type="text">
+                </label>
+                <div></div>
+                <label for="target">Target
+                    <input id="target" type="text" >
+                </label>
+                <div ></div>
+                <label for="message">Message
+                    <input id="message" type="text" >
+                </label>
+                <input type="submit" value="submit" style="">
+            </form>
+        </div>
     </div>
 </section>
 </body>
