@@ -1,5 +1,9 @@
 <?php
-$isLoggedIn = false;
+session_start();
+include("src/config.php");
+if(!isset($_SESSION['is_logged_in'])){
+    $_SESSION['is_logged_in'] = false;
+}
 ?>
 <html>
 <head>
@@ -14,20 +18,47 @@ $isLoggedIn = false;
 <nav>
     <ul>
         <li><a href="index.php">RPS Leaderboard</a></li>
-        <?php if ($isLoggedIn){?>
+        <?php if ($isLoggedIn) { ?>
             <li><a href="logging.php">Logging</a></li>
         <?php } ?>
-        <li><a href="login.php">Login</a></li>
+        <?php if (!$isLoggedIn) { ?>
+            <li><a href="login.php">Login</a></li>
+        <?php } else { ?>
+            <li><a href="logout.php">Logout</a></li>
+        <?php } ?>
     </ul>
 </nav>
 <section>
-    <h3>RPS Leaderboard</h3>
-    <table>
-        <tr>
-            <th>Points</th>
-            <th>Name</th>
-        </tr>
-    </table>
+    <div class="table-center">
+        <table>
+            <tr>
+                <th>User name</th>
+                <th>Points</th>
+                <th>User Server ID</th>
+            </tr>
+            <?php
+            // SQL query to interact with info from our database
+            $styling = '';
+            $sql = mysqli_query($conn, "SELECT * FROM leaderboard ORDER BY id LIMIT 25");
+
+            $i = 0;
+            // Establish the output variable
+
+            while ($row = mysqli_fetch_array($sql)) {
+                $styling = ($i % 2) ? 'background-color: darkgrey;' : 'background-color: grey;';
+                $row2 = mysqli_query($conn, "SELECT username FROM user WHERE usertoken ={$row['u_token']}");
+
+
+                echo "<tr>";
+                echo "<td style='padding: 5px; {$styling}'>" . $row2['username'] . "</td>";
+                echo "<td style='padding: 5px; {$styling}'>" . $row['points'] . "</td>";
+                echo "<td style='padding: 5px; {$styling}'>" . $row['u_server'] . "</td>";
+                echo "</tr>";
+                $i++;
+            }
+            ?>
+        </table>
+    </div>
     <!--  DO WORK HERE  -->
 </section>
 </body>
