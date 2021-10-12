@@ -61,6 +61,9 @@ module.exports.upsertLeaderBoard = function upsertLeaderBoard(member, guildID, p
  * full example: await Utils.advancedSelect('*','user',"serverid = ?",[`${interaction.guild.id}`])
  */
 module.exports.advancedSelect = function advancedSelect(select, table, where, prepared) {
+    console.log(`SELECT ${select}
+                   FROM ${table}
+                   WHERE ${where} and ${prepared}`);
     return new Promise((resolve) => {
         con.query(`SELECT ${select}
                    FROM ${table}
