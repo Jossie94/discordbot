@@ -2,7 +2,8 @@
 if(!isset($_SESSION['is_logged_in'])){
     $_SESSION['is_logged_in'] = false;
 }
-$id = '';//todo add user id on login
+include("src/config.php");
+$isLoggedIn = $_SESSION['is_logged_in'];
 ?>
 <html>
 <head>
@@ -40,7 +41,7 @@ $id = '';//todo add user id on login
             <?php
             // SQL query to interact with info from our database
             $styling = '';
-            $sql = mysqli_query(mysqli_connect("projectfritid.com", "Skole", "Skole123", "discordbot"), "SELECT * FROM log ORDER BY id LIMIT 10");
+            $sql = mysqli_query($conn, "SELECT * FROM log ORDER BY id LIMIT 10");
             $i = 0;
             // Establish the output variable
 
@@ -60,20 +61,20 @@ $id = '';//todo add user id on login
             //todo fix search for post get
             ?>
         </table>
-        <div style="margin: 10px; float: left; background-color: lightgray; width: 250px; height: 350px;">
-            <form style="display: table-caption" action="logging.php">
-                <label for="caster" style="margin-left: 95px;">Caster
-                    <input id="caster" type="text" style="margin-left: 25px;">
+        <div class="search-div">
+            <form action="logging.php">
+                <label for="caster">Caster
+                    <input id="caster" type="text">
                 </label>
-                <div style="margin:15px;"></div>
-                <label for="target" style="margin-left: 95px;">Target
-                    <input id="target" type="text" style="margin-left: 25px;">
+                <div></div>
+                <label for="target">Target
+                    <input id="target" type="text" >
                 </label>
-                <div style="margin:15px;"></div>
-                <label for="message" style="margin-left: 95px;">Message
-                    <input id="message" type="text" style="margin-left: 25px;">
+                <div ></div>
+                <label for="message">Message
+                    <input id="message" type="text" >
                 </label>
-                <input type="submit" value="submit" style="margin-left: 90px;margin-top: 15px;">
+                <input type="submit" value="submit" style="">
             </form>
         </div>
     </div>
