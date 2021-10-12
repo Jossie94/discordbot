@@ -41,7 +41,7 @@ $isLoggedIn = $_SESSION['is_logged_in'];
             <?php
             // SQL query to interact with info from our database
             $styling = '';
-            $sql = mysqli_query($conn, "SELECT * FROM log ORDER BY id LIMIT 10");
+            $sql = mysqli_query($conn, "SELECT * FROM log ORDER BY id LIMIT 10 DESC");
             $i = 0;
             // Establish the output variable
 
