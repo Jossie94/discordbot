@@ -2,13 +2,14 @@
 session_start();
 include("src/config.php");
 $error = "";
-if(!isset($_SESSION['is_logged_in'])){
+if (!isset($_SESSION['is_logged_in'])) {
     $_SESSION['is_logged_in'] = false;
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
+
 
     $query = "SELECT login_name, login_password FROM user WHERE login_name = '$username' AND login_password = '$password'";
     $result = mysqli_query($conn, $query);
@@ -44,11 +45,11 @@ $isLoggedIn = $_SESSION['is_logged_in'];
         <?php if ($isLoggedIn) { ?>
             <li><a href="logging.php">Logging</a></li>
         <?php } ?>
-        <?php if (!$isLoggedIn) { ?>
+        <?php if (!$isLoggedIn): ?>
             <li><a href="login.php">Login</a></li>
-        <?php } else { ?>
+        <?php else: ?>
             <li><a href="logout.php">Logout</a></li>
-        <?php } ?>
+        <?php endif; ?>
     </ul>
 </nav>
 <section>
