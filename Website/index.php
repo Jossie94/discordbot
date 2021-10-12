@@ -51,9 +51,9 @@ $isLoggedIn = $_SESSION['is_logged_in'];
 
 
                 echo "<tr>";
-                echo "<td style='; {$styling}'>" . $row2['username'] . "</td>";
-                echo "<td style='; {$styling}'>" . $row['points'] . "</td>";
-                echo "<td style='; {$styling}'>" . $row['u_server'] . "</td>";
+                echo "<td style=' {$styling}'>" . $row2['username'] . "</td>";
+                echo "<td style=' {$styling}'>" . $row['points'] . "</td>";
+                echo "<td style=' {$styling}'>" . $row['u_server'] . "</td>";
                 echo "</tr>";
                 $i++;
             }
