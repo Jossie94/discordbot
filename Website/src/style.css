@@ -79,5 +79,28 @@ body .table-center table {
 body .table-center table td {
   padding: 5px;
 }
+body .search-div {
+  margin: 10px;
+  float: left;
+  background-color: lightgray;
+  width: 250px;
+  height: 350px;
+}
+body .search-div form {
+  display: table-caption;
+}
+body .search-div form div {
+  margin: 15px;
+}
+body .search-div form label {
+  margin-left: 95px;
+}
+body .search-div form label input {
+  margin-left: 25px;
+}
+body .search-div form input {
+  margin-left: 90px;
+  margin-top: 15px;
+}
 
 /*# sourceMappingURL=style.css.map */
