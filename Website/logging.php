@@ -1,7 +1,8 @@
 <?php
-$isLoggedIn = false;
+if(!isset($_SESSION['is_logged_in'])){
+    $_SESSION['is_logged_in'] = false;
+}
 $id = '';//todo add user id on login
-//$sql = mysqli_query(mysqli_connect("projectfritid.com", "Skole", "Skole123", "discordbot"), "SELECT is_dev FROM user WHERE id = {$id}");
 ?>
 <html>
 <head>
@@ -19,7 +20,11 @@ $id = '';//todo add user id on login
         <?php if ($isLoggedIn) { ?>
             <li><a href="logging.php">Logging</a></li>
         <?php } ?>
-        <li><a href="login.php">Login</a></li>
+        <?php if (!$isLoggedIn) { ?>
+            <li><a href="login.php">Login</a></li>
+        <?php } else { ?>
+            <li><a href="logout.php">Logout</a></li>
+        <?php } ?>
     </ul>
 </nav>
 <section>
